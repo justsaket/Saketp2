@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import AdmZip from "adm-zip";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const source = "https://github.com/Code2With-Pratik/SPYLT-GSAP-Animated-Website/archive/refs/heads/main.zip";
+const source = "https://github.com/Code2With-Pratik/SPYLT-GSAP-Animated-Website/archive/7180c908341d6774ddc6a6149862be2a69e16fb0.zip";
 
 async function download(url) {
   const res = await fetch(url);
@@ -13,8 +13,7 @@ async function download(url) {
 }
 
 const zipPath = path.join(root, ".spylt-source.zip");
-const zipBuffer = await download(source);
-fs.writeFileSync(zipPath, zipBuffer);
+fs.writeFileSync(zipPath, await download(source));
 
 const zip = new AdmZip(zipPath);
 const entry = zip.getEntries().find(e => e.entryName.endsWith("/package.json"));
@@ -24,8 +23,7 @@ const prefix = entry.entryName.slice(0, -("package.json".length));
 
 for (const name of ["src/", "public/", "index.html", "vite.config.js", "eslint.config.js"]) {
   const full = prefix + name;
-  const matches = zip.getEntries().filter(e => e.entryName === full || e.entryName.startsWith(full));
-  for (const item of matches) {
+  for (const item of zip.getEntries().filter(e => e.entryName === full || e.entryName.startsWith(full))) {
     const relative = item.entryName.slice(prefix.length);
     if (!relative || item.isDirectory) continue;
     const destination = path.join(root, relative);
