@@ -1,0 +1,25 @@
+{
+  "name": "saket-spylt-clone",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/fetch-source.mjs && vite",
+    "build": "node scripts/fetch-source.mjs && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@tailwindcss/vite": "^4.1.8",
+    "adm-zip": "^0.5.16",
+    "gsap": "^3.13.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-responsive": "^10.0.1",
+    "tailwindcss": "^4.1.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.4.1",
+    "vite": "^6.3.5"
+  }
+}
